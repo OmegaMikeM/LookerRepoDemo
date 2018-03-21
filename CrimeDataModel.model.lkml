@@ -17,9 +17,10 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
-explore: incidents_dsh_msk {
-  access_filter: {
-    field: incidents_dsh_msk.cv_legend
-    user_attribute: isvandalism
-  }
-}
+#
+ explore: incidents_dsh_msk {
+#  access_filter: {
+#     field: incidents_dsh_msk.cv_legend
+#     user_attribute: isvandalism
+#   }
+ }
