@@ -106,13 +106,13 @@ view: incidents_dsh_msk {
     sql: ${TABLE}.END_DATETIME ;;
   }
 
-  dimension: shift {
+  dimension: new_shift {
     type: string
     case: {
       when: { label: "Morning" sql: ${end_datetime_hour_of_day} BETWEEN 4 AND 10 }
       when: { label: "Afternoon" sql: ${end_datetime_hour_of_day} BETWEEN 10 AND 16 }
       when: { label: "Evening" sql: ${end_datetime_hour_of_day} BETWEEN 16 AND 22 }
-      else: "Graveyard"
+      else: "Graveyard" 
     }
   }
 
@@ -185,6 +185,7 @@ view: incidents_dsh_msk {
   }
 
   dimension: offense_desc {
+    label: "Offense Description"
     group_label: "Descriptions"
     type: string
     sql: ${TABLE}.OFFENSE_DESC ;;

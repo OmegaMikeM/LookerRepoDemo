@@ -18,9 +18,25 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 #   }
 # }
 #
- explore: incidents_dsh_msk {
+explore: incidents_dsh_msk { 
+	label: "Incidents"
+	view_label: "Incidents"
+}
+
+explore: incident_trends { 
+	label: "Incident Trends"
+	view_label: "Incidents"
+}
+
+
+#  This is an example access_filter used to showcase the incident table
+#
 #  access_filter: {
 #     field: incidents_dsh_msk.cv_legend
 #     user_attribute: isvandalism
 #   }
- }
+
+
+map_layer: {
+	file: "/sample_data_beats.json"
+}
