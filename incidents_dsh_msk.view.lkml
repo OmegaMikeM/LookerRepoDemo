@@ -34,6 +34,9 @@ view: incidents_dsh_msk {
   dimension: cv_legend {
     type: string
     sql: ${TABLE}.CV_LEGEND ;;
+    link: {label:"Filter Dashboard"
+      url:"/dashboards/1?Incident%20Type={{value}}"}
+
   }
 
   dimension: is_vandalism {
@@ -357,6 +360,12 @@ view: incidents_dsh_msk {
   dimension: y {
     type: number
     sql: ${TABLE}.Y ;;
+  }
+
+  dimension: Location {
+    type: location
+    sql_latitude: ${latitude_text} ;;
+    sql_longitude: ${longitude_text} ;;
   }
 
   dimension: zone_ {
