@@ -16,12 +16,6 @@ view: incidents_dsh_msk {
     sql: ${TABLE}.BUSINESS_NAME ;;
   }
 
-  dimension: case_id {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.CASE_ID ;;
-  }
-
   dimension: case_status {
     type: string
     sql: ${TABLE}.CASE_STATUS ;;
@@ -43,30 +37,11 @@ view: incidents_dsh_msk {
       label:"Filter Dashboard"
       url:"/dashboards/1?Incident%20Type={{value}}"
     }
-
   }
 
   dimension: is_vandalism {
     type: yesno
     sql: ${cv_legend} = 'VANDALISM';;
-  }
-
-  dimension: cv_to_date {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.CV_TO_DATE ;;
-  }
-
-  dimension: cv_to_dow {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.CV_TO_DOW ;;
-  }
-
-  dimension: cv_to_time {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.CV_TO_TIME ;;
   }
 
   dimension: disp_code {
@@ -129,6 +104,16 @@ view: incidents_dsh_msk {
       year
     ]
     sql: ${TABLE}.END_DATETIME ;;
+  }
+
+  dimension: shift {
+    type: string
+    case: {
+      when: { label: "Morning" sql: ${end_datetime_hour_of_day} BETWEEN 4 AND 10 }
+      when: { label: "Afternoon" sql: ${end_datetime_hour_of_day} BETWEEN 10 AND 16 }
+      when: { label: "Evening" sql: ${end_datetime_hour_of_day} BETWEEN 16 AND 22 }
+      else: "Graveyard"
+    }
   }
 
   dimension: gang_related {
@@ -248,6 +233,7 @@ view: incidents_dsh_msk {
   }
 
   dimension_group: split_datetime {
+    label: "Split"
     type: time
     timeframes: [
       raw,
@@ -306,7 +292,7 @@ view: incidents_dsh_msk {
     sql: ${TABLE}.Y ;;
   }
 
-  dimension: Location {
+  dimension: location {
     group_label: "Location / Geometry"
     type: location
     sql_latitude: ${latitude_text} ;;
@@ -324,7 +310,19 @@ view: incidents_dsh_msk {
     drill_fields: [business_name, officer_name, iw_geo_name]
   }
 
+  measure: count_zones {
+    type: count_distinct
+    sql: ${zone_} ;;
+    drill_fields: [end_date, business_name, officer_name, iw_geo_name]
+  }
+
   ## HIDDEN FIELDS
+
+  dimension: case_id {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.CASE_ID ;;
+  }
 
   dimension: cv_occur_date {
     hidden: yes
@@ -381,6 +379,24 @@ view: incidents_dsh_msk {
     sql: ${TABLE}.CV_SPLIT_TIME ;;
   }
 
+  dimension: cv_to_date {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.CV_TO_DATE ;;
+  }
+
+  dimension: cv_to_dow {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.CV_TO_DOW ;;
+  }
+
+  dimension: cv_to_time {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.CV_TO_TIME ;;
+  }
+
   dimension: latitude_text {
     hidden: yes
     type: string
@@ -433,5 +449,11 @@ view: incidents_dsh_msk {
     sql: ${TABLE}.Shape ;;
   }
 
+  dimension: shape_to_string {
+    group_label: "Location / Geometry"
+    hidden: yes
+    type: string
+    sql: ${TABLE}.Shape,ToString() ;;
+  }
 
 }
