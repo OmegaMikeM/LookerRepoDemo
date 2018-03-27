@@ -377,4 +377,11 @@ view: incidents_dsh_msk {
     type: count
     drill_fields: [business_name, officer_name, iw_geo_name]
   }
+
+  measure: incident_count_crime_type {
+    label: "Incident Count"
+    description: "crime type"
+    type: count
+    html: <a target="_parent" href="http://localhost:61841/iframebroadcast.html#looker=(CrimeType:'{{ crime_type._value | encode_uri}}')">{{rendered_value}}</a>;;
+  }
 }
