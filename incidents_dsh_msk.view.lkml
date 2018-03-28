@@ -33,10 +33,10 @@ view: incidents_dsh_msk {
     label: "Legend"
     type: string
     sql: ${TABLE}.CV_LEGEND ;;
-    link: {
-      label:"Filter Dashboard"
-      url:"/dashboards/1?Incident%20Type={{value}}"
-    }
+#     link: {
+#       label:"Filter Dashboard"
+#       url:"/dashboards/1?Incident%20Type={{value}}"
+#     }
     html: <a target="_parent" href="http://localhost:61841/Defaultl#result=(Legend:'{{ value | encode_uri}}')">{{rendered_value}}</a> ;;
   }
 
