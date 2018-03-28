@@ -18,15 +18,15 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 #   }
 # }
 #
-explore: incidents_dsh_msk { 
-	label: "Incidents"
-	view_label: "Incidents"
+explore: incidents_dsh_msk {
+  label: "Incidents"
+  view_label: "Incidents"
 }
 
-explore: incident_trends { 
-	label: "Incident Trends"
-	view_label: "Incidents"
-}
+# explore: incident_trends {
+#   label: "Incident Trends"
+#   view_label: "Incidents"
+# }
 
 
 #  This is an example access_filter used to showcase the incident table
@@ -37,6 +37,6 @@ explore: incident_trends {
 #   }
 
 
-map_layer: {
-	file: "/sample_data_beats.json"
-}
+# map_layer: {
+#   file: "/sample_data_beats.json"
+# }

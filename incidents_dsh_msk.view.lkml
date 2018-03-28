@@ -37,6 +37,7 @@ view: incidents_dsh_msk {
       label:"Filter Dashboard"
       url:"/dashboards/1?Incident%20Type={{value}}"
     }
+    html: <a target="_parent" href="http://localhost:61841/Defaultl#result=(Legend:'{{ value | encode_uri}}')">{{rendered_value}}</a> ;;
   }
 
   dimension: is_vandalism {
@@ -109,10 +110,10 @@ view: incidents_dsh_msk {
   dimension: new_shift {
     type: string
     case: {
-      when: { label: "Morning" sql: ${end_datetime_hour_of_day} BETWEEN 4 AND 10 }
-      when: { label: "Afternoon" sql: ${end_datetime_hour_of_day} BETWEEN 10 AND 16 }
-      when: { label: "Evening" sql: ${end_datetime_hour_of_day} BETWEEN 16 AND 22 }
-      else: "Graveyard" 
+      when: { label: "Morning" sql: ${end_datetime_hour_of_day} BETWEEN 4 AND 10 ;;}
+      when: { label: "Afternoon" sql: ${end_datetime_hour_of_day} BETWEEN 10 AND 16 ;;}
+      when: { label: "Evening" sql: ${end_datetime_hour_of_day} BETWEEN 16 AND 22 ;;}
+      else: "Graveyard"
     }
   }
 
@@ -311,10 +312,11 @@ view: incidents_dsh_msk {
     drill_fields: [business_name, officer_name, iw_geo_name]
   }
 
+
   measure: count_zones {
     type: count_distinct
     sql: ${zone_} ;;
-    drill_fields: [end_date, business_name, officer_name, iw_geo_name]
+    drill_fields: [business_name, officer_name, iw_geo_name]
   }
 
   ## HIDDEN FIELDS
